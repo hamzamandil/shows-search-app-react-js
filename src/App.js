@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import HomePage from './pages/HomePage'
+import SearchPage from './pages/SearchPage'
+import ShowPage from './pages/ShowPage'
+import Header from './components/layout/Header'
+
+import {ShowState} from './context/ShowContext';
+import {AlertState} from './context/AlertContext'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ShowState>
+    <AlertState>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/search" component={SearchPage} />
+          <Route path="/shows/:id" component={ShowPage} />
+        </Switch>
+      </Router>
+      </AlertState>
+    </ShowState>
+    );
 }
 
 export default App;
